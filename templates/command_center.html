@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<center>
+
+	{% for index in range(1, numGPI+1) %}
+
+	<form id = gpiform_{{index}} action="" method="post" novalidate>
+	{{ f_gpiID.hidden_tag() }}
+	
+		{{ f_gpiID.streamid.label }} {{ f_gpiID.streamid(size=32) }}
+		{{ f_gpiID.setbut(size=32) }}
+	</form>	
+	<form id = gpiform_{{index}} action="" method="post" novalidate>
+		{{ f_gpiCtrl.active.label }} {{ f_gpiCtrl.active(size=32) }}		
+		{{ f_gpiCtrl.testbut(size=32) }} {{ f_gpiCtrl.logbut(size=32) }}	
+	</form>
+	</br>	
+	{% endfor %}
+	
+	
+</center>
+
+{% endblock %}
