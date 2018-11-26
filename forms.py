@@ -15,6 +15,6 @@ class GPItoID(FlaskForm):
 
 # Buttons for manual Testing of GPI signal, activating or logging GPI inputs
 class GPIctrl(FlaskForm):
-	active = BooleanField('Active:')
+	active = BooleanField('Active')
 	testbut = SubmitField('Test')
 	logbut = SubmitField('Log')

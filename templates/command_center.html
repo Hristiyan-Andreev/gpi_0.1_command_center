@@ -5,14 +5,15 @@
 
 	{% for index in range(1, numGPI+1) %}
 
-	<form id = gpiform_{{index}} action="" method="post" novalidate>
+	<form id = gpiID_{{index}} action="{{url_for('gpiSetID')}}" method="post" novalidate>
 	{{ f_gpiID.hidden_tag() }}
 	
 		{{ f_gpiID.streamid.label }} {{ f_gpiID.streamid(size=32) }}
-		{{ f_gpiID.setbut(size=32) }}
+		{{ f_gpiID.setbut(class="toggle", size=32) }}
+		
 	</form>	
-	<form id = gpiform_{{index}} action="" method="post" novalidate>
-		{{ f_gpiCtrl.active.label }} {{ f_gpiCtrl.active(size=32) }}		
+	<form id = gpiCtrl_{{index}} action="{{url_for('gpiCtrl')}}" method="post" novalidate>
+		{{ f_gpiCtrl.active(size=32) }}		
 		{{ f_gpiCtrl.testbut(size=32) }} {{ f_gpiCtrl.logbut(size=32) }}	
 	</form>
 	</br>	
@@ -21,4 +22,42 @@
 	
 </center>
 
+
+<script>
+    $(document).ready(function() {
+        $('form').submit(function (event) {
+			var form_id = $(this).attr('id')
+			var url = $(this).attr('action')
+			event.preventDefault(); 		// block the traditional submission of the form.			
+			console.log( $( this ).serialize() )
+            $.ajax({
+                type: "POST",
+                url: url,
+                data: $('form').serialize(), // serializes the form's elements.
+                success: function (data) {
+                    console.log(data)  // display the returned data in the console.
+                }
+            });
+        });
+		// Inject our CSRF token into our AJAX request.		
+        $.ajaxSetup({
+            beforeSend: function(xhr, settings) {
+                if (!/^(GET|HEAD|OPTIONS|TRACE)$/i.test(settings.type) && !this.crossDomain) {
+                    xhr.setRequestHeader("X-CSRFToken", "{{ f_gpiID.csrf_token._value() }}")
+                }
+            }
+        })
+		
+		$('.toggle').click(function() {
+			var current_status = $('.status').text();
+			if (current_status === 'Untoggled'){
+				$('.status').html('Toggled');
+			}
+			else{
+				$('.status').html('Untoggled');
+			}
+		});
+		
+    });
+</script>
 {% endblock %}
