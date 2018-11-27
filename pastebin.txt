@@ -1,0 +1,11 @@
+{% for index in range(1, numGPI+1) %}
+
+
+{{ forms[index][csrf_token] }}
+{{ forms[index].form_id }}
+{{ forms[index][gpi_id] }} {{ forms[index][gpi_id] }}
+{{ forms[index][gpi_id][setbut(class="toggle", size=32)] }}
+
+
+{{ form.active(size=32) }}		
+{{ form.testbut(size=32) }} {{ form.logbut(size=32) }}

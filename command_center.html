@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<center>
+
+	
+	{% for index in range(forms | count) %}
+	<form id = gpiCtrl_{{index}} action="{{url_for('gpiCtrl')}}" method="post" novalidate>
+		{{ forms[index][csrf_token] }}
+		{{ forms[index].form_id }}
+		{{ forms[index][gpi_id] }} {{ forms[index][gpi_id] }}
+		{{ forms[index][gpi_id][setbut(class="toggle", size=32)] }}
+		
+	
+		{{ form.active(size=32) }}		
+		{{ form.testbut(size=32) }} {{ form.logbut(size=32) }}	
+	</form>
+	</br>	
+	{% endfor %}
+	
+</center>
+
+{% endblock %}
